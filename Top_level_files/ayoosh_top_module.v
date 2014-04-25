@@ -191,7 +191,7 @@ module top_module #
 	wire clk200_out;
    wire [35:0] control;
 //	wire [999:0] dataport;
-	wire [306:0] dataport;
+	wire [307:0] dataport;
 	wire [7:0] trigger;
 	 wire locked_dcm;
 	 wire fifo_empty;
@@ -519,7 +519,7 @@ SPART_Dcache_dummy Spart_dummy
 	assign dataport[304] = io_mem_rw_data; 
 	assign dataport[305] = io_mem_valid_data; 
 	assign dataport[306] = io_mem_ready_data; 
-
+	assign dataport[307] = txd;
 	 
 // DVI signals
 //	assign dataport[950] = clk_dvi;
