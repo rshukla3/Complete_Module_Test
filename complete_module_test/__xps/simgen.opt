@@ -1,0 +1,1 @@
+ -p virtex5 -lang verilog$(PROJECT_SEARCHPATHOPT) $(GLOBAL_SEARCHPATHOPT) -msg __xps/ise/xmsgprops.lst -s isim -X I:/Xilinx_Projects/Complete_Module_Test/complete_module_test/
