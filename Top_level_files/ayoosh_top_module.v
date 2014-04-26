@@ -645,10 +645,10 @@ npu npu(
 //	assign dataport[0] = clk0_tb;
 	assign dataport[0] = txd;
 	assign dataport[32:1] = spart_mem_data_addr;
-	assign dataport[64:33] = spart_mem_rw_data;
+	assign dataport[64:33] = spart_mem_data_rd;
 	assign dataport[96:65] = spart_mem_data_wr;
 	assign dataport[105:97] = piso_out;
-	assign dataport[106] = spart_mem_data_rd;
+	assign dataport[106] = spart_mem_rw_data;
 	assign dataport[107] = spart_mem_valid_data;
 	assign dataport[108] = spart_mem_ready_data;
 	reg cache_ready_chipscope;
@@ -668,7 +668,7 @@ npu npu(
 	assign dataport[175:144] = cache_wr_data;
 	assign dataport[207:176] = cache_rd_instr;
 	assign dataport [239:208] = cache_rd;
-	assign dataport[271:240] = cache_addr_instr;
+	assign dataport[267:240] = cache_addr_data;
 //	assign dataport[9] = io_mem_rw_data;
 //	assign dataport[10] = io_mem_valid_data;
 	assign dataport[272] = io_mem_ready_data;
