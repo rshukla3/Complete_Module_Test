@@ -34,7 +34,7 @@ module driver(
 	// Input connections from DDR2 for ChipScope
 //	input clk0_tb,
 //	input clk200_out,
-	
+	output data_to_chipscope_out,
 	// Connections to/from SPART_Cache interfaqce
 	input spart_data_wren,
 	input spart_data_rden,
@@ -79,7 +79,7 @@ module driver(
 	
 	assign div_low = 8'hA3;
 	assign div_high = 8'h00;
-	
+	assign data_to_chipscope_out = data_to_be_transmitted;
 // Read case, needs to be changed
 assign databus =  (iorw == 0 & iocs == 1 ) ? databus_drive : 8'hzz;
 

@@ -28,8 +28,10 @@ module spart_top_level(
 //	input clk0_tb,    
 //	input clk200_out,
 	output [8:0] piso_out,
-
-	
+	output reg [31:0] spart_data_out,
+	output reg [31:0] spart_data_in,
+	output reg [31:0] spart_status,
+	output reg [31:0] spart_addr,
 	// Signals from/to SPART Cache interface
 	input io_rw_data,
 	input io_valid_data,
@@ -53,7 +55,7 @@ module spart_top_level(
 	wire [31:0] data_rx;
 	wire [31:0] status_register;
 	wire clear_status_rd;
-	
+	wire [31:0] data_to_chipscope_out;
 	reg count;
 	assign spart_data_rden = (~io_rw_data && io_valid_data);
 	assign spart_data_wren = (io_rw_data && io_valid_data);
@@ -63,6 +65,42 @@ module spart_top_level(
 	assign clear_status_rd = (mem_addr == 28'h800_0000) ? 1'b1 : 1'b0;
 	assign io_ready_data = (spart_data_rden && count) ? data_rdy : ( (spart_data_wren && count) ? data_rdy : 1'b0 );
 	
+	always @(posedge clk)
+	begin
+		if(rst)
+			spart_data_out <= 32'd0;
+		else
+		begin
+			if(mem_addr == 28'h800_0000 && spart_data_rden)
+				spart_data_out <= data_rx;
+			else
+				spart_data_out <= spart_data_out;
+		end
+	end
+	
+	always @(posedge clk)
+	begin
+		if(rst)
+			spart_status <= 32'd0;
+		else
+			spart_status <= status_register;
+	end
+	
+	always @(posedge clk)
+	begin
+		if(rst)
+			spart_addr <= 32'd0;
+		else
+			spart_addr <= mem_addr;
+	end
+	
+	always @(posedge clk)
+	begin
+		if(rst)
+			spart_data_in <= 32'd0;
+		else
+			spart_data_in <= data_to_chipscope_out;
+	end
 	always @(posedge clk)
 	begin
 		if(rst)
@@ -108,7 +146,7 @@ module spart_top_level(
 					
 //					.clk0_tb(clk0_tb),
 //					.clk200_out(clk200_out)
-					
+					.data_to_chipscope_out(data_to_chipscope_out),
 					.data_rx(data_rx),
 					.data_tx(data_tx),
 					.status_register(status_register),

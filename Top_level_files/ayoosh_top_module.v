@@ -149,6 +149,8 @@ module top_module #
 	 
 	 output [11:0] D,
 	 
+	 output piso_led_out,
+	 
 	 output clk_dvi,
 	 output clk_dvi_n,
 	 output txd,        // RS232 Transmit Data
@@ -243,8 +245,18 @@ module top_module #
 	       wire              spart_mem_rw_data;             							
 	     wire               spart_mem_valid_data;				
 	    wire 				  spart_mem_ready_data;	
-		 wire [8:0] piso_out;
-	
+		 wire [8:0]   piso_out;
+		 reg piso_led_out_temp;
+		 
+		 assign piso_led_out = piso_led_out_temp;
+		 always @(posedge clk_in)
+		 begin
+		 if(gl_rst)
+			piso_led_out_temp <= 0;
+		 else
+			piso_led_out_temp <= piso_out[0];
+		 end
+		 
 		Arbiter arbiter_module (
 		.clk(clk_in), 
 		.reset(gl_rst), 
@@ -430,13 +442,21 @@ SPART_Dcache_dummy Spart_dummy
 		
     );
 */
-
+   wire [31:0] spart_status;
+   wire [31:0] spart_addr;
+   wire [31:0] spart_data_out;
+   wire [31:0] spart_data_in;
 	spart_top_level spart_interface
 	(
 		.clk(clk_in),         // 100mhz clock
 		.rst(gl_rst),         // Asynchronous reset, tied to dip switch 0
 		.txd(txd),        // RS232 Transmit Data
 		.rxd(rxd),         // RS232 Receive Data
+		
+		.spart_data_out(spart_data_out),
+		.spart_data_in(spart_data_in),
+		.spart_addr(spart_addr),
+		.spart_status(spart_status),
 	
 	// Signals from/to SPART Cache interface
 		.io_rw_data(spart_mem_rw_data),
@@ -479,47 +499,6 @@ SPART_Dcache_dummy Spart_dummy
     .CLK2X_OUT(CLK2X_OUT), 
     .LOCKED_OUT(LOCKED_OUT)
     );
-
-// Chipscope related items
-		icon icon_1
-	 (
-		 .CONTROL0(control)
-	 );
-	
-	 ila ila_1
-	 (
-		 .CLK(clk200_out),
-		 .CONTROL(control),
-		 .DATA(dataport),
-		 .TRIG0(trigger)
-	 );
-	
-	// SPART Signals
-	assign dataport[0] = clk0_tb;
-	assign dataport[32:1] = spart_mem_data_addr;
-	assign dataport[64:33] = spart_mem_data_rd;
-	assign dataport[96:64] = spart_mem_data_wr;
-	assign dataport[105:97] = piso_out;
-	assign dataport[106] = spart_mem_rw_data;
-	assign dataport[107] = spart_mem_valid_data;
-	assign dataport[108] = spart_mem_ready_data;
-	
-	// Processor 
-	assign dataport[109] = cache_rw_data;
-	assign dataport[110] = cache_valid_data;
-	assign dataport[111] = cache_ready;
-	assign dataport[143:112] = cache_addr_instr;	
-	assign dataport[175:144] = cache_wr_data;
-	assign dataport[207:176] = cache_rd_instr;
-	
-	// IO-Map module
-	assign dataport[239:208] = io_mem_data_wr;
-	assign dataport[271:240] = io_mem_data_rd;
-	assign dataport[303:272] = io_mem_data_addr;
-	assign dataport[304] = io_mem_rw_data; 
-	assign dataport[305] = io_mem_valid_data; 
-	assign dataport[306] = io_mem_ready_data; 
-	assign dataport[307] = txd;
 	 
 // DVI signals
 //	assign dataport[950] = clk_dvi;
@@ -536,16 +515,7 @@ SPART_Dcache_dummy Spart_dummy
 //	assign dataport[971] = fifo_empty;
 //	assign dataport[972] = rd_fifo;
 //	assign dataport[973] = done;
-	
-	assign trigger[0] = clk0_tb;
-	assign trigger[1] = spart_mem_rw_data;
-	assign trigger[2] = spart_mem_valid_data;
-	assign trigger[3] = spart_mem_ready_data;
-	assign trigger[4] = cache_rw_data;
-	assign trigger[5] = cache_valid_data;
-	assign trigger[6] = cache_ready;
-	assign trigger[7] = txd;
-	
+		
 	
 // ################################################################
 
@@ -656,4 +626,74 @@ npu npu(
   .addra(cache_addr_instr), // input [8 : 0] addra
   .douta(cache_rd_instr) // output [31 : 0] douta
 );
+
+	// Chipscope related items
+		icon icon_1
+	 (
+		 .CONTROL0(control)
+	 );
+	
+	 ila ila_1
+	 (
+		 .CLK(clk200_out),
+		 .CONTROL(control),
+		 .DATA(dataport),
+		 .TRIG0(trigger)
+	 );
+	
+	// SPART Signals
+//	assign dataport[0] = clk0_tb;
+	assign dataport[0] = txd;
+	assign dataport[32:1] = spart_mem_data_addr;
+	assign dataport[64:33] = spart_mem_rw_data;
+	assign dataport[96:65] = spart_mem_data_wr;
+	assign dataport[105:97] = piso_out;
+	assign dataport[106] = spart_mem_data_rd;
+	assign dataport[107] = spart_mem_valid_data;
+	assign dataport[108] = spart_mem_ready_data;
+	reg cache_ready_chipscope;
+	 
+	always @(clk_in)
+	begin
+		if(gl_rst)
+			cache_ready_chipscope <= 1'b0;
+		else
+			cache_ready_chipscope <= cache_ready;
+	end
+	// Processor 
+	assign dataport[109] = cache_rw_data;
+	assign dataport[110] = cache_valid_data;
+	assign dataport[111] = cache_ready;
+	assign dataport[143:112] = cache_addr_instr;	
+	assign dataport[175:144] = cache_wr_data;
+	assign dataport[207:176] = cache_rd_instr;
+	assign dataport [239:208] = cache_rd;
+	assign dataport[271:240] = cache_addr_instr;
+//	assign dataport[9] = io_mem_rw_data;
+//	assign dataport[10] = io_mem_valid_data;
+	assign dataport[272] = io_mem_ready_data;
+//	assign dataport[43:12] = io_mem_data_wr;	
+//	assign dataport[75:44] = io_mem_data_rd;
+//	assign dataport[107:16] = io_mem_data_addr;
+
+//	
+//	// IO-Map module
+//	assign dataport[239:208] = io_mem_data_wr;
+	
+//	assign dataport[303:272] = io_mem_data_addr;
+//	assign dataport[304] = io_mem_rw_data; 
+//	assign dataport[305] = io_mem_valid_data; 
+//	assign dataport[306] = io_mem_ready_data; 
+//	assign dataport[307] = txd;
+//	
+	assign trigger[0] = clk0_tb;
+	assign trigger[1] = spart_mem_rw_data;
+	assign trigger[2] = spart_mem_valid_data;
+	assign trigger[3] = spart_mem_ready_data;
+	assign trigger[4] = cache_rw_data;
+	assign trigger[5] = cache_valid_data;
+	assign trigger[6] = cache_ready;
+	assign trigger[7] = txd;
+
+
 	endmodule
