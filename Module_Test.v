@@ -114,6 +114,12 @@ module Module_Test;
 		#100;
        rst = 0;
 		// Add stimulus here
+		
+		#6500;
+		rst = 1;
+		
+		#6600;
+		rst = 0;
 
 	end
 	

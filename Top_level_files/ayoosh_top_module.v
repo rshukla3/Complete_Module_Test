@@ -453,11 +453,7 @@ SPART_Dcache_dummy Spart_dummy
 		.txd(txd),        // RS232 Transmit Data
 		.rxd(rxd),         // RS232 Receive Data
 		
-		.spart_data_out(spart_data_out),
-		.spart_data_in(spart_data_in),
-		.spart_addr(spart_addr),
-		.spart_status(spart_status),
-	
+		.piso_out(piso_out),
 	// Signals from/to SPART Cache interface
 		.io_rw_data(spart_mem_rw_data),
 		.io_valid_data(spart_mem_valid_data),
@@ -623,7 +619,7 @@ npu npu(
 	 
     newInstructionMem InstructionROM (
   .clka(clk_in), // input clka
-  .addra(cache_addr_instr), // input [8 : 0] addra
+  .addra(cache_addr_instr[3:0]), // input [8 : 0] addra
   .douta(cache_rd_instr) // output [31 : 0] douta
 );
 
@@ -653,13 +649,7 @@ npu npu(
 	assign dataport[108] = spart_mem_ready_data;
 	reg cache_ready_chipscope;
 	 
-	always @(clk_in)
-	begin
-		if(gl_rst)
-			cache_ready_chipscope <= 1'b0;
-		else
-			cache_ready_chipscope <= cache_ready;
-	end
+	
 	// Processor 
 	assign dataport[109] = cache_rw_data;
 	assign dataport[110] = cache_valid_data;
@@ -669,7 +659,7 @@ npu npu(
 	assign dataport[207:176] = cache_rd_instr;
 	assign dataport [239:208] = cache_rd;
 	assign dataport[267:240] = cache_addr_data;
-//	assign dataport[9] = io_mem_rw_data;
+	assign dataport[268] = clk0_tb;
 //	assign dataport[10] = io_mem_valid_data;
 	assign dataport[272] = io_mem_ready_data;
 //	assign dataport[43:12] = io_mem_data_wr;	
