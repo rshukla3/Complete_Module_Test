@@ -1,0 +1,16 @@
+# Output products list for <newTransmitInstructionMem>
+_xmsgs\pn_parser.xmsgs
+blk_mem_gen_ds512.pdf
+blk_mem_gen_readme.txt
+newTransmitInstructionMem.asy
+newTransmitInstructionMem.gise
+newTransmitInstructionMem.mif
+newTransmitInstructionMem.ngc
+newTransmitInstructionMem.v
+newTransmitInstructionMem.veo
+newTransmitInstructionMem.vhd
+newTransmitInstructionMem.vho
+newTransmitInstructionMem.xco
+newTransmitInstructionMem.xise
+newTransmitInstructionMem_flist.txt
+newTransmitInstructionMem_xmdf.tcl
