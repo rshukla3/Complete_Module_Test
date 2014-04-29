@@ -27,6 +27,8 @@ module Processor(
 	output			npu_config_fifo_we,
 	output			npu_output_fifo_re,
 	output			halt,
+	
+	output  [511:0] chipscope_signals,
 
 	// Inputs
 	input	[31:0]	cache_rd_instr,
@@ -59,6 +61,7 @@ module Processor(
 
 	reg		[31:0]	id_if_NextPC_Stall, if_id_NextPC_Stall;
 	wire	[31:0]	id_if_NextPC;
+	
 	
 	// External modules instantiation
 	InstructionFetchStage InstructionFetchStage_0 (
@@ -665,5 +668,20 @@ module Processor(
 			rSemiStall	<= semiStall;
 //		end
 	end
+	
+	
+	assign chipscope_signals[31:0] = id_if_Instruction;
+	assign chipscope_signals[32] = rSemiStall;
+	assign chipscope_signals[33] = rFullStall;
+	assign chipscope_signals[65:34] = id_if_NextPC;
+	assign chipscope_signals[87:66] = if_id_NextPC;
+	assign chipscope_signals[88] = semiStall;
+	assign chipscope_signals[89] = fullStall;
+	assign chipscope_signals[91:90] = forwardCmd0;
+	assign chipscope_signals[93:92] = forwardCmd1;
+	assign chipscope_signals[97:94] = exRegRs;
+	assign chipscope_signals[101:98] = exRegRt;
+	assign chipscope_signals[105:102] = memRegRd;
+	assign chipscope_signals[109:106] = wbRegRd;
 	
 endmodule

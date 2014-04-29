@@ -192,8 +192,8 @@ module top_module #
 	wire app_af_wren;
 	wire clk200_out;
    wire [35:0] control;
-//	wire [999:0] dataport;
-	wire [307:0] dataport;
+	wire [999:0] dataport;
+//	wire [307:0] dataport;
 	wire [7:0] trigger;
 	 wire locked_dcm;
 	 wire fifo_empty;
@@ -587,6 +587,8 @@ Processor Processor(
 	.npu_config_fifo_we(npu_config_fifo_we),
 	.npu_output_fifo_re(npu_output_fifo_re),
 //	,//output			halt,
+
+	.chipscope_signals(dataport[811:300]),
 //
 	// Inputs
 	.cache_rd_instr(cache_rd_instr),
