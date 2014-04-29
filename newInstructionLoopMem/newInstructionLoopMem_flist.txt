@@ -1,0 +1,16 @@
+# Output products list for <newInstructionLoopMem>
+_xmsgs\pn_parser.xmsgs
+blk_mem_gen_ds512.pdf
+blk_mem_gen_readme.txt
+newInstructionLoopMem.asy
+newInstructionLoopMem.gise
+newInstructionLoopMem.mif
+newInstructionLoopMem.ngc
+newInstructionLoopMem.v
+newInstructionLoopMem.veo
+newInstructionLoopMem.vhd
+newInstructionLoopMem.vho
+newInstructionLoopMem.xco
+newInstructionLoopMem.xise
+newInstructionLoopMem_flist.txt
+newInstructionLoopMem_xmdf.tcl
