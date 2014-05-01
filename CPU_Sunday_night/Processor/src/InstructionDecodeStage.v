@@ -41,6 +41,8 @@ module InstructionDecodeStage (
 	output			oNpuEnqOp,
 	output			oNpuDeqOp,
 	output	[31:0]	oInstruction,
+	
+	output  [113:0] chipscope_signals,
 
 	// Inputs
 	input	[31:0]	iInstruction,
@@ -124,6 +126,16 @@ module InstructionDecodeStage (
 		.iNextPC		(iNextPC),
 		.iOffset		(oOffset[20:0])
 	);
+	
+	assign chipscope_signals[31:0] = oSrc0;
+	assign chipscope_signals[63:32] = oSrc1;
+	assign chipscope_signals[68:64] = src0Addr;
+	assign chipscope_signals[73:69] = src1Addr;
+	assign chipscope_signals[78:74] = iWriteAddr;
+	assign chipscope_signals[110:79] = iWriteData;
+	assign chipscope_signals[111] = src0En;
+	assign chipscope_signals[112] = src1En;
+	assign chipscope_signals[113] = iWriteEn;
 
 	// Outputs assignment
 	assign oNextPC			= iNextPC;						// Bypass next program counter

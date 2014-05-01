@@ -19,13 +19,13 @@
 
   <version xmlns="http://www.xilinx.com/XMLSchema">11.1</version>
 
-  <sourceproject xmlns="http://www.xilinx.com/XMLSchema" xil_pn:fileType="FILE_XISE" xil_pn:name="newInstructionLoopMem.xise"/>
+  <sourceproject xmlns="http://www.xilinx.com/XMLSchema" xil_pn:fileType="FILE_XISE" xil_pn:name="newReceiveInstructionMem.xise"/>
 
   <files xmlns="http://www.xilinx.com/XMLSchema">
     <file xil_pn:fileType="FILE_USERDOC" xil_pn:name="blk_mem_gen_readme.txt" xil_pn:origination="imported"/>
-    <file xil_pn:fileType="FILE_ASY" xil_pn:name="newInstructionLoopMem.asy" xil_pn:origination="imported"/>
-    <file xil_pn:fileType="FILE_VEO" xil_pn:name="newInstructionLoopMem.veo" xil_pn:origination="imported"/>
-    <file xil_pn:fileType="FILE_VHO" xil_pn:name="newInstructionLoopMem.vho" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_ASY" xil_pn:name="newReceiveInstructionMem.asy" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_VEO" xil_pn:name="newReceiveInstructionMem.veo" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_VHO" xil_pn:name="newReceiveInstructionMem.vho" xil_pn:origination="imported"/>
   </files>
 
   <transforms xmlns="http://www.xilinx.com/XMLSchema"/>

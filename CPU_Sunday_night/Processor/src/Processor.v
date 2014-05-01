@@ -24,6 +24,8 @@ module Processor(
 	output			npu_config_fifo_we,
 	output			npu_output_fifo_re,
 	output			halt,
+	
+	output  [113:0] chipscope_signals,
 
 	// Inputs
 	input	[31:0]	cache_rd_instr,
@@ -169,6 +171,8 @@ module Processor(
 		.oNpuEnqOp			(id_ex_NpuEnqOp),
 		.oNpuDeqOp			(id_ex_NpuDeqOp),
 		.oInstruction		(id_ex_Instruction),
+		
+		.chipscope_signals  (chipscope_signals),
 
 		// Inputs
 		.iInstruction		(id_if_Instruction),
