@@ -32,13 +32,9 @@
 component newSpartInstructionMem
 	port (
 	clka: IN std_logic;
-	addra: IN std_logic_VECTOR(4 downto 0);
+	addra: IN std_logic_VECTOR(5 downto 0);
 	douta: OUT std_logic_VECTOR(31 downto 0));
 end component;
-
--- Synplicity black box declaration
-attribute syn_black_box : boolean;
-attribute syn_black_box of newSpartInstructionMem: component is true;
 
 -- COMP_TAG_END ------ End COMPONENT Declaration ------------
 

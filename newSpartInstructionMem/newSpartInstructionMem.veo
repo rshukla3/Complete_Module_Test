@@ -33,7 +33,7 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 newSpartInstructionMem YourInstanceName (
 	.clka(clka),
-	.addra(addra), // Bus [4 : 0] 
+	.addra(addra), // Bus [5 : 0] 
 	.douta(douta)); // Bus [31 : 0] 
 
 // INST_TAG_END ------ End INSTANTIATION Template ---------
