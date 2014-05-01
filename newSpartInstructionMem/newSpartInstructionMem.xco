@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 12.2
-# Date: Thu May 01 00:02:24 2014
+# Date: Thu May 01 01:11:25 2014
 #
 ##############################################################
 #
@@ -17,10 +17,10 @@ SET addpads = false
 SET asysymbol = true
 SET busformat = BusFormatAngleBracketNotRipped
 SET createndf = false
-SET designentry = Advanced
+SET designentry = Verilog
 SET device = xc5vlx110t
 SET devicefamily = virtex5
-SET flowvendor = Other
+SET flowvendor = Foundation_ISE
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
@@ -90,4 +90,4 @@ CSET write_width_a=32
 CSET write_width_b=32
 # END Parameters
 GENERATE
-# CRC: 7be17877
+# CRC: eb595350

@@ -6,6 +6,7 @@ newSpartInstructionMem.asy
 newSpartInstructionMem.gise
 newSpartInstructionMem.mif
 newSpartInstructionMem.ngc
+newSpartInstructionMem.sym
 newSpartInstructionMem.v
 newSpartInstructionMem.veo
 newSpartInstructionMem.vhd
