@@ -1,0 +1,16 @@
+# Output products list for <newSpartInstructionMem_1000>
+_xmsgs\pn_parser.xmsgs
+blk_mem_gen_ds512.pdf
+blk_mem_gen_readme.txt
+newSpartInstructionMem_1000.asy
+newSpartInstructionMem_1000.gise
+newSpartInstructionMem_1000.mif
+newSpartInstructionMem_1000.ngc
+newSpartInstructionMem_1000.v
+newSpartInstructionMem_1000.veo
+newSpartInstructionMem_1000.vhd
+newSpartInstructionMem_1000.vho
+newSpartInstructionMem_1000.xco
+newSpartInstructionMem_1000.xise
+newSpartInstructionMem_1000_flist.txt
+newSpartInstructionMem_1000_xmdf.tcl
